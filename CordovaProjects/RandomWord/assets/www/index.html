@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <link rel="stylesheet" href="css/jquery.mobile-1.3.1.min.css" />
+<script src="js/jquery-2.0.2.min.js"></script>
+<script src="js/wordnik.js"></script>
+<script src="js/app.js"></script>
+<script src="js/jquery.mobile-1.3.1.min.js"></script>
+    <script type="text/javascript" src="cordova.js"></script>
+    //<script type="text/javascript" src="main.js"></script>
+
+    <script type="text/javascript" charset="utf-8">
+
+    // Call onDeviceReady when Cordova is loaded.
+    //
+    // At this point, the document has loaded but cordova-1.7.0.js has not.
+    // When Cordova is loaded and talking with the native device,
+    // it will call the event `deviceready`.
+    //
+    function onLoad() {
+        document.addEventListener("deviceready", onDeviceReady, false);
+    }
+
+    // Cordova is loaded and it is now safe to make calls Cordova methods
+    //
+    function onDeviceReady() {
+        // Now safe to use the Cordova API
+    }
+
+    </script>
+    
+<title>Random Word</title>
+</head>
+
+
+<body onload="onLoad()">
+
+<div id="home" data-role="page">
+        
+<div id="word"  name="word" data-role="header" data-position="fixed"  data-theme="a" style="font-size:xx-large">
+
+</div>
+
+      
+<div data-role="content" id="definition" name="definition" data-role="content"   data-theme="c" data-inset="true" >
+<ul data-role="listview"><li style="font-size: large;padding-bottom:1.5em"  data-theme="d">Definitions</li></ul>
+
+    <ol id="def" data-role="listview">
+ 
+			</ol>
+</div>
+
+  
+<div id="example" name="example" data-role="content"  data-theme="c" data-inset="true" >
+   
+    <ul data-role="listview" data-theme="d"><li style="font-size: large;padding-bottom:1.5em"  >Examples</li></ul>
+
+    <ol id="exp" data-role="listview">
+        
+	
+			</ol>
+
+    
+</div>
+
+
+<div id="footer"  name="footer" data-role="footer" data-position="fixed" data-id="foo1" data-theme="a" style="font-size:large">
+
+
+<a href="#" id="randomize" style="font-size:x-large;padding-bottom:1.5em"   data-inline="false" data-theme="a" data-corners="false" data-role="button"> Randomize</a>
+
+</div>
+
+</div>
+
+</body>
+</html>
