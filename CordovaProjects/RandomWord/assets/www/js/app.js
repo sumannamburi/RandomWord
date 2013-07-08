@@ -1,8 +1,11 @@
+
+/// <reference path="jquery-2.0.2-vsdoc.js" />
+/// <reference path="jquery-2.0.2.min.js" />
 $(function(){
 //app.initialize();
 //$("p").text(getrandomword());
  //$("#randomize").on( 'tap', getrandomword() );
-
+ 
  $("#randomize").click(function() {
        //location.reload();
        

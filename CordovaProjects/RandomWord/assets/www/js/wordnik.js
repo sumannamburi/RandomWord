@@ -1,6 +1,8 @@
 
 //Define wordnik functions
 
+/// <reference path="jquery-2.0.2-vsdoc.js" />
+/// <reference path="jquery-2.0.2.min.js" />
 var getrandomword = function ()
 {
     var random_url = 'http://api.wordnik.com/v4/words.json/randomWord?api_key=8e73a5a541c0eff49700705a0d4014a1141c3679b7f1084cd&hasDictionaryDef=true&excludePartOfSpeech=noun-plural&minCorpusCount=0&maxCorpusCount=-1&minDictionaryCount=1&maxDictionaryCount=-1&minLength=5&maxLength=-1';
@@ -69,7 +71,7 @@ var getdefinition = function (randomwordpass)
     });
     return;
 }
-/*
+
 
 var getgoolgedef = function (randomwordpass)
 {
@@ -85,23 +87,44 @@ var getgoolgedef = function (randomwordpass)
         success: function (googdefinition)
         {
             console.log(googdefinition);
-            /*$.each(definition, function(index, element) {
+            //var jsongoogdef = (JSON.stringify(googdefinition));
+
+            /* $.each(definition, function(index, element) {
             $("#definition").append($('<div>', {
             text: element.text
             }));
             });
-            
+            */
 
-
-            $.each(googdefinition.primaries.entries, function (index1, element)
+            if (googdefinition.hasOwnProperty("primaries"))
             {
-                var gdef = $("#def").append("<li>" + element.terms[1].text + "</li>");
-                $("#def").listview("refresh");
-            });
+                var gprimary = googdefinition.primaries[0].entries[1].terms[0].text;
+                if (!gprimary)
+                {
 
+                    gprimary = googdefinition.primaries[0].entries[0].terms[0].text;
+
+                }
+                //var gphoenitic = googdefinition.primaries[0].terms[1].text;
+
+            }
+
+            if (googdefinition.hasOwnProperty("webDefinitions"))
+            {
+                var gwebdef = googdefinition.webDefinitions[0].entries[0].terms[0].text;
+            }
+            /*  $.each(googdefinition, function (index1, element)
+            {
+            var gdef = $("#def").append("<li>" +webDefinitions[0].entries[0].terms[0].text + "</li>");
+            //$("#def").listview("refresh");
+            });
+            */
             //$("p").text(definition[0].text);
-            console.log(gdef);
-            console.log(googdefinition.primaries[0].entries[0].terms[0].text);
+
+            console.log(gprimary);
+            //console.log(gphoenitic);
+            console.log(gwebdef);
+            //console.log(googdefinition.primaries[0].entries[0].terms[0].text);
         },
         "error": function (jqXHR, status, error)
         {
@@ -111,8 +134,8 @@ var getgoolgedef = function (randomwordpass)
     return;
 }
 
-*/
 
+/*
 var getgoolgedef = function (randomwordpass)
 {
     var googdefinition_url = "https://www.vocabulary.com/dictionary/horses";
@@ -132,7 +155,7 @@ var getgoolgedef = function (randomwordpass)
             text: element.text
             }));
             });
-            */
+            
 
 
         },
@@ -144,7 +167,7 @@ var getgoolgedef = function (randomwordpass)
     return;
 }
 
-
+*/
 
 var getexample = function (randomwordpass)
 {
