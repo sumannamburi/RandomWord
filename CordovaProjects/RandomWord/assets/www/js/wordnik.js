@@ -19,9 +19,10 @@ var getrandomword = function ()
 
             //console.log(randomword);
             $("#word").text(randomword.word);
-           // getdefinition(randomword.word);
-            getgoolgedef(randomword.word);
-           // getexample(randomword.word);
+            getblurb(randomword.word);
+            //getdefinition(randomword.word);
+            // getgoolgedef(randomword.word);
+            // getexample(randomword.word);
 
         },
         "error": function (jqXHR, status, error)
@@ -135,27 +136,42 @@ var getgoolgedef = function (randomwordpass)
 }
 
 
-/*
-var getgoolgedef = function (randomwordpass)
+
+var getblurb = function (blurbarg)
 {
-    var googdefinition_url = "https://www.vocabulary.com/dictionary/horses";
+    var blurbdefinition_url = "https://www.vocabulary.com/dictionary/horse";
 
     //return $.get(url, {count:5}, null, 'jsonp');
 
     $.ajax({
         type: 'POST',
-        url: googdefinition_url,
-       // dataType: "jsonp",
+        url: blurbdefinition_url,
+        // dataType: "jsonp",
 
-        success: function (googdefinition)
+        success: function (blurbhtml)
         {
-            console.log(googdefinition);
+            console.log(blurbhtml);
+            // var bhtml = blurbhtml;
+            // var $bhtml = $(bhtml);
+            // var blurb = $('<div/>').append($bhtml).find("<div class="secti">).val();
+
+            var bhtml = '<div id="body-mock">' + blurbhtml.replace(/^[\s\S]*<body.*?>|<\/body>[\s\S]*$/g, '') + '</div>';
+            console.log(bhtml);
+            var $bhtmlobj = $(bhtml);
+            console.log($bhtmlobj.find("div.section.blurb > .short").text());   // get short description
+            console.log($bhtmlobj.find("div.section.blurb > .long").text());    // get blurb  {i haz blurb}
+
+            //var blurb = $bhtml.filter(<body>)
+            //  var content = $('<div/>').append(data).find('#yourelement').html();
+            // alert(blurbhtml);
             /*$.each(definition, function(index, element) {
             $("#definition").append($('<div>', {
             text: element.text
             }));
-            });
-            
+            });*/
+            //console.log(bhtml);
+            //console.log(blurb);
+
 
 
         },
@@ -167,7 +183,7 @@ var getgoolgedef = function (randomwordpass)
     return;
 }
 
-*/
+
 
 var getexample = function (randomwordpass)
 {
