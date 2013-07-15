@@ -20,9 +20,12 @@ var getrandomword = function ()
             //console.log(randomword);
             $("#word").text(randomword.word);
             getblurb(randomword.word);
-            //getdefinition(randomword.word);
-            // getgoolgedef(randomword.word);
-            // getexample(randomword.word);
+          // $.mobile.hidePageLoadingMsg(); 
+
+              $.mobile.loading('hide');
+            getdefinition(randomword.word);
+            getgoolgedef(randomword.word);
+             getexample(randomword.word);
 
         },
         "error": function (jqXHR, status, error)
@@ -55,14 +58,15 @@ var getdefinition = function (randomwordpass)
             }));
             });
             */
-
+            $("#def").css('display', 'none');
 
             $.each(definition, function (index1, element)
             {
-                $("#def").append("<li>" + element.text + "</li>");
-                $("#def").listview("refresh");
+                $("#def").append("<li><p><i class=\"icon-angle-right\"></i> " + element.text + "</p></li>");
+               
             });
-
+            $("#def").fadeIn("slow");
+            // $("#def").listview("refresh");
             //$("p").text(definition[0].text);
         },
         "error": function (jqXHR, status, error)
@@ -87,7 +91,9 @@ var getgoolgedef = function (randomwordpass)
 
         success: function (googdefinition)
         {
-            console.log(googdefinition);
+            // console.log(googdefinition);
+            $("gdef").css('display', 'none');
+            $("#gwebdef").css('display', 'none');
             //var jsongoogdef = (JSON.stringify(googdefinition));
 
             /* $.each(definition, function(index, element) {
@@ -99,20 +105,38 @@ var getgoolgedef = function (randomwordpass)
 
             if (googdefinition.hasOwnProperty("primaries"))
             {
+
                 var gprimary = googdefinition.primaries[0].entries[1].terms[0].text;
                 if (!gprimary)
                 {
 
                     gprimary = googdefinition.primaries[0].entries[0].terms[0].text;
 
+
                 }
                 //var gphoenitic = googdefinition.primaries[0].terms[1].text;
-
+                // $("#gdef").text(gprimary).css(  "border-left" ,"5px solid green");
+                $("#gdef").append("<li><i class=\"icon-angle-right\"></i> " + gprimary + "</li>");
+                $("#gdef").fadeIn("slow");
             }
 
             if (googdefinition.hasOwnProperty("webDefinitions"))
             {
+
                 var gwebdef = googdefinition.webDefinitions[0].entries[0].terms[0].text;
+                $("#gwebdef").append("<li><i class=\"icon-angle-right\"></i> " + gwebdef + "</li>");
+                $("#gwebdef").fadeIn("slow");
+            }
+
+
+
+            if (gprimary === undefined || gwebdef === undefined)
+            {
+                $("#ulgdata").hide();
+            }
+            else
+            {
+                $("#ulgdata").show();
             }
             /*  $.each(googdefinition, function (index1, element)
             {
@@ -120,11 +144,17 @@ var getgoolgedef = function (randomwordpass)
             //$("#def").listview("refresh");
             });
             */
-            //$("p").text(definition[0].text);
 
-            console.log(gprimary);
+            /* if (gflag != "true")
+            {
+            $("#ulgdata").hide();
+
+            }
+
+            */
+            // console.log(gprimary);
             //console.log(gphoenitic);
-            console.log(gwebdef);
+            // console.log(gwebdef);
             //console.log(googdefinition.primaries[0].entries[0].terms[0].text);
         },
         "error": function (jqXHR, status, error)
@@ -139,7 +169,7 @@ var getgoolgedef = function (randomwordpass)
 
 var getblurb = function (blurbarg)
 {
-    var blurbdefinition_url = "https://www.vocabulary.com/dictionary/horse";
+    var blurbdefinition_url = "https://www.vocabulary.com/dictionary/" + blurbarg;
 
     //return $.get(url, {count:5}, null, 'jsonp');
 
@@ -150,16 +180,33 @@ var getblurb = function (blurbarg)
 
         success: function (blurbhtml)
         {
-            console.log(blurbhtml);
+            //console.log(blurbhtml);
             // var bhtml = blurbhtml;
             // var $bhtml = $(bhtml);
             // var blurb = $('<div/>').append($bhtml).find("<div class="secti">).val();
-
+            $("#blurbshort").css('display', 'none');
+            $("#blurblong").css('display', 'none');
             var bhtml = '<div id="body-mock">' + blurbhtml.replace(/^[\s\S]*<body.*?>|<\/body>[\s\S]*$/g, '') + '</div>';
             console.log(bhtml);
             var $bhtmlobj = $(bhtml);
-            console.log($bhtmlobj.find("div.section.blurb > .short").text());   // get short description
-            console.log($bhtmlobj.find("div.section.blurb > .long").text());    // get blurb  {i haz blurb}
+            var blurbshort = $bhtmlobj.find("div.section.blurb > .short").text();
+            var blurblong = $bhtmlobj.find("div.section.blurb > .long").text();
+            $("#blurbshort").append("<li><p><i class=\"icon-angle-right\"></i> " + blurbshort + "</p></li>");   // get short description
+            $("#blurbshort").fadeIn("slow");
+            $("#blurblong").append("<li><p><i class=\"icon-angle-right\"></i> " + blurblong + "</p></li>");  // get blurb  {i haz blurb}
+            $("#blurblong").fadeIn("slow");
+
+            if (blurbshort === "")
+            {
+                $("#ulblurb").hide();
+            }
+            else
+            {
+                $("#ulblurb").show();
+            }
+            //console.log("blurb");
+            //console.log($bhtmlobj.find("div.section.blurb > .short").text());
+            // console.log($bhtmlobj.find("div.section.blurb > .long").text());
 
             //var blurb = $bhtml.filter(<body>)
             //  var content = $('<div/>').append(data).find('#yourelement').html();
@@ -204,13 +251,18 @@ var getexample = function (randomwordpass)
             });
 
             */
+            $("#exp").css('display', 'none');
             $.each(example.examples, function (index1, element)
             {
-                $("#exp").append("<li  style=\"font-weight:normal\" >" + element.text + "</li>");
-                $("#exp").listview("refresh");
+                $("#exp").append("<li><p><i class=\"icon-angle-right\"></i> " + element.text + "</p></li>");
+                 //$("#def").append("<li>" + element.text + "</li>");
                 //exlist.wrap("<li/>");
             });
             //$("p").text(getjsonp_data.word);
+           var explength = $('#exp li').length;
+           $('#explength').text(explength);
+            $("#exp").fadeIn("slow");
+           // $("#exp").listview("refresh");
         },
         "error": function (jqXHR, status, error)
         {
@@ -219,7 +271,3 @@ var getexample = function (randomwordpass)
     });
     return;
 }
-
-
-
-

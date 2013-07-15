@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-    <link rel="stylesheet" href="css/jquery.mobile-1.3.1.min.css" />
+   <!-- <link rel="stylesheet" href="css/jquery.mobile-1.3.1.min.css" /> -->
 <script src="js/jquery-2.0.2.min.js"></script>
 <script src="js/wordnik.js"></script>
 <script src="js/app.js"></script>
@@ -11,6 +11,22 @@
     <script type="text/javascript" src="cordova.js"></script>
             
     //<script type="text/javascript" src="main.js"></script>
+    <!-- FontAwesome - http://fortawesome.github.io/Font-Awesome/ -->
+        <link rel="stylesheet" href="css/font-awesome.min.css" />
+    <link rel="stylesheet" href="app.css" />
+		<!-- jQueryMobileCSS - original without styling -->
+        <link rel="stylesheet" href="css/jquerymobile.css" />
+    <!--<link rel="stylesheet" href="css/jquery.mobile-1.3.1.min.css" />-->
+
+		<!-- nativeDroid core CSS -->
+        <link rel="stylesheet" href="css/jquerymobile.nativedroid.css" />
+
+		<!-- nativeDroid: Light/Dark -->
+        <link rel="stylesheet" href="css/jquerymobile.nativedroid.light.css"  id='jQMnDTheme' />
+
+		<!-- nativeDroid: Color Schemes -->
+        <link rel="stylesheet" href="css/jquerymobile.nativedroid.color.blue.css" id='jQMnDColor' />
+
 
     <script type="text/javascript" charset="utf-8">
 
@@ -37,44 +53,104 @@
 
 
 <body onload="onLoad()">
-    ///<reference path="js/jquery-2.0.2-vsdoc.js" />
+   
 <div id="home" data-role="page">
         
-<div id="word"  name="word" data-role="header" data-position="fixed"  data-theme="a" style="font-size:xx-large">
+<div id="word"  data-role="header" data-position="fixed"  data-theme="b" data-tap-toggle="false" style="font-size:xx-large">
 
 </div>
 
-      
-<div data-role="content" id="definition" name="definition" data-role="header"   data-theme="c" data-inset="true" >
-<ul data-role="listview"><li style="font-size: large"  data-theme="d">Definitions</li></ul>
 
-    <ol id="def" data-role="listview">
+     <ul data-role="listview" id="uldef" data-inset="false" data-icon="false" data-divider-theme="b">
+            <li data-role="list-divider">Definition<span class="ui-li-count">1</span></li>
+          <li> <div id="def"></div></li>
+        </ul>
+
+   <!--
+<div data-role="content"   id="definition"    data-inset="true"  >
+     
+<ul data-role="listview"  ><li ><h2>Definitions</h2></li></ul>
+    </div>
+
+    <ul id="def" data-role="listview" data-divider-theme="b" >
  
-			</ol>
-</div>
+			</ul>
+    -->      
 
-  
-<div id="example" name="example" data-role="content"  data-theme="c" data-inset="true" >
+    <ul data-role="listview" id="ulgdata" data-inset="false" data-icon="false" data-divider-theme="b">
+            <li data-role="list-divider">Google definitions<span class="ui-li-count">2</span></li>
+            <li>
+                
+                
+               <p id="gdef" ></p>
+                
+                
+            </li>
+          <li>
+                
+                
+             <p id="gwebdef"></p>
+                 
+                
+            </li>
+        </ul>
+
+     <ul data-role="listview" id="ulblurb" data-inset="false" data-icon="false" data-divider-theme="b">
+            <li data-role="list-divider">Blurb<span class="ui-li-count">2</span></li>
+            <li>
+                
+                
+              <p id="blurbshort"></p>
+                 
+                
+            </li>
+         <li>
+                
+                
+                <p id="blurblong"></p>
+                 
+                
+            </li>
+        </ul>
+
+
+    <ul data-role="listview" id="ulexp"  data-inset="false" data-icon="false" data-divider-theme="b">
+            <li data-role="list-divider">Examples<span class="ui-li-count" id="expcount"></span></li>
+          <li> <div id="exp"></div></li>
+        </ul>
+  <!--
+<div data-role="content"  id="example"    data-inset="true"  > 
    
-    <ul data-role="listview" data-theme="d"><li style="font-size: large;padding-bottom:1.5em"  >Examples</li></ul>
+    <ul data-role="listview"  ><li ><h2>Examples</h2></li></ul>
+    </div>
 
-    <ol id="exp" data-role="listview" >
+    <ul id="exp" data-role="listview" data-divider-theme="b" >
         
 	
-			</ol>
-
+			</ul>
+    -->
     
-</div>
+    
+<!--
+<div id="footer"  name="footer" data-role="footer" data-position="fixed" data-id="foo1" data-theme="b" data-tap-toggle="false" style="font-size:large">
 
 
-<div id="footer"  name="footer" data-role="footer" data-position="fixed" data-id="foo1" data-theme="a" style="font-size:large">
-
-
-<a href="#" id="randomize" style="font-size:x-large;padding-bottom:1.5em"   data-inline="false" data-theme="a" data-corners="false" data-role="button"> Randomize</a>
-
-</div>
+<a href="#" id="randomize" style="font-size:x-large"  data-inline="false" data-theme="b" data-corners="false" data-role="button"> Randomize</a>
 
 </div>
+-->
 
+    <div data-position="fixed" data-tap-toggle="false" data-role="footer" data-tap-toggle="false" data-theme='b'>
+			<div data-role="navbar">
+				<ul>
+					<li><a href="#" id="randomize" data-icon="random">Randomise</a></li>
+					
+				</ul>
+			</div>
+		</div>
+
+
+</div>
+    <script src="js/nativedroid.script.js"></script>
 </body>
 </html>
