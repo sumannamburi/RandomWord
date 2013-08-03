@@ -4,19 +4,14 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
    <!-- <link rel="stylesheet" href="css/jquery.mobile-1.3.1.min.css" /> -->
-<script src="js/jquery-2.0.2.min.js"></script>
-<script src="js/wordnik.js"></script>
-<script src="js/app.js"></script>
-<script src="js/jquery.mobile-1.3.1.min.js"></script>
-    <script type="text/javascript" src="cordova.js"></script>
+
+
             
-    //<script type="text/javascript" src="main.js"></script>
-    <!-- FontAwesome - http://fortawesome.github.io/Font-Awesome/ -->
-        <link rel="stylesheet" href="css/font-awesome.min.css" />
-    <link rel="stylesheet" href="app.css" />
+
+   <link rel="stylesheet" href="css/font-awesome.min.css" />
+
 		<!-- jQueryMobileCSS - original without styling -->
         <link rel="stylesheet" href="css/jquerymobile.css" />
-    <!--<link rel="stylesheet" href="css/jquery.mobile-1.3.1.min.css" />-->
 
 		<!-- nativeDroid core CSS -->
         <link rel="stylesheet" href="css/jquerymobile.nativedroid.css" />
@@ -27,7 +22,17 @@
 		<!-- nativeDroid: Color Schemes -->
         <link rel="stylesheet" href="css/jquerymobile.nativedroid.color.blue.css" id='jQMnDColor' />
 
+		<!-- jQuery / jQueryMobile Scripts -->
+		<script src="http://code.jquery.com/jquery-1.9.1.min.js"></script>
+        <script src="http://code.jquery.com/mobile/1.3.1/jquery.mobile-1.3.1.min.js"></script>
 
+      <script src="js/nativedroid.script.js"></script>
+<script src="js/wordnik.js"></script>
+<script src="js/app.js"></script>
+      
+    <script type="text/javascript" src="cordova.js"></script>
+            
+    <script type="text/javascript" src="js/crud.js"></script>
     <script type="text/javascript" charset="utf-8">
 
     // Call onDeviceReady when Cordova is loaded.
@@ -54,20 +59,48 @@
 
 <body onload="onLoad()">
    
-<div id="home" data-role="page">
-        
-<div id="word"  data-role="header" data-position="fixed"  data-theme="b" data-tap-toggle="false" style="font-size:xx-large">
+<div data-role="page" id="pageid" data-theme='b'>
 
+	<div data-role="panel" id="mypanel" data-display="reveal" data-theme="b">
+        <ul data-role="listview">
+            <li data-role="list-divider">Settings</li>
+            <li data-icon="coffee"><a id ="bookmarky" href="#">Bookmarks</a></li>
+            <li data-icon="coffee"><a href='#popupDialog' data-rel='popup' data-position-to='window'   data-transition='pop' data-inline='true'>About</a></li>
+
+           
+        </ul>
+        </div>
+   <div id="head"  data-role="header" data-position="fixed"  data-theme="b" data-tap-toggle="false" style="font-size:xx-large">
+  <!-- 
+    <div ><i class="icon-reorder ui-btn-left" id="leftmenu">       </i>  </div>
+ 
+    <div class="ui-btn-right" id="bookmark"><i class="icon-star-empty ui-btn-right"></i></div>
+
+    -->
+
+       <a href="#mypanel" ><i class='icon-reorder'></i></a>
+            <h1 class="hd " id="word"> </h1>
+    <a href="#" ><i id="bookmark" class='icon-star-empty'></i></a>
 </div>
 
+<div data-role="content"   id="definition"    data-inset="true"  >
 
      <ul data-role="listview" id="uldef" data-inset="false" data-icon="false" data-divider-theme="b">
             <li data-role="list-divider">Definition<span class="ui-li-count">1</span></li>
           <li> <div id="def"></div></li>
         </ul>
 
+
+    <div id="listbook">
+    <ul data-role="listview" data-inset="false" data-icon="false" data-divider-theme="b">
+     <li data-role="list-divider">Bookmarks<span class="ui-li-count">2</span></li>
+    <li> <div id="listbookid"></div></li>
+     </ul>
+    
+    
+    </div>
    <!--
-<div data-role="content"   id="definition"    data-inset="true"  >
+
      
 <ul data-role="listview"  ><li ><h2>Definitions</h2></li></ul>
     </div>
@@ -113,10 +146,9 @@
             </li>
         </ul>
 
-
     <ul data-role="listview" id="ulexp"  data-inset="false" data-icon="false" data-divider-theme="b">
             <li data-role="list-divider">Examples<span class="ui-li-count" id="expcount"></span></li>
-          <li> <div id="exp"></div></li>
+          <li id="exp"></li>
         </ul>
   <!--
 <div data-role="content"  id="example"    data-inset="true"  > 
@@ -140,17 +172,44 @@
 </div>
 -->
 
-    <div data-position="fixed" data-tap-toggle="false" data-role="footer" data-tap-toggle="false" data-theme='b'>
+        </div>
+
+
+     <div data-role="popup" id="popupDialog" data-theme="b">
+            
+                <div data-role="header" data-theme="b">
+                    <h1>Delete from library?</h1>
+                </div>
+        
+                <div data-role="content" data-theme="b">
+                    <p>just link to a normal page and include a transition and <code>data-rel="dialog"</code> attribute</p>
+                    <p><a href="https://twitter.com/MetallicKat"><i class="icon-twitter"></i> @Metallickat</a></p>
+                    <p><a href="https://plus.google.com/108601312973357680934/posts"><i class="icon-google-plus"></i>  sumannamburi</a></p>
+                     <p><a href="https://www.facebook.com/suman.namburi.7"><i class="icon-facebook"></i> sumannamburi</a></p>
+                    <div >
+                            <a href="dialog/index.html" data-rel="back" data-icon="ok" data-iconpos="left" data-role="button" data-inline="true">Sounds good</a>
+                            <a href="dialog/index.html" data-rel="back" data-icon="delete" data-iconpos="left" data-role="button" data-inline="true">Cancel</a>
+                    </div>
+                    
+                </div>
+            </div>
+
+
+<div data-position="fixed" data-tap-toggle="false" data-role="footer" data-tap-toggle="false" data-theme='b'>
 			<div data-role="navbar">
 				<ul>
-					<li><a href="#" id="randomize" data-icon="random">Randomise</a></li>
+					<li><a href="#" id="randomize" data-icon="random" data-theme='b'>Randomise</a></li>
 					
 				</ul>
 			</div>
 		</div>
 
 
-</div>
-    <script src="js/nativedroid.script.js"></script>
+
+
+
+
+        </div>
+    
 </body>
 </html>

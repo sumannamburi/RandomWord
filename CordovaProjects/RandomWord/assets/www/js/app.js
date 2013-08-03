@@ -6,12 +6,21 @@ $(function ()
     //app.initialize();
     //$("p").text(getrandomword());
     //$("#randomize").on( 'tap', getrandomword() );
-     getrandomword();
+
+
+
+
+    getrandomword();
     $("#randomize").click(function ()
     {
         //location.reload();
 
         $.mobile.loading('show');
+        $("#listbook").hide();
+        $("#uldef").show();
+        $("#ulgdata").show();
+        $("#ulblurb").show();
+        $("#ulexp").show();
 
         $("#exp").empty();
         $("#def").empty();
@@ -20,6 +29,28 @@ $(function ()
         $("#blurbshort").empty();
         $("#blurblong").empty();
         getrandomword();
+
+        //location.reload();
+
+    });
+
+    $("#bookmark").click(function ()
+    {
+        //location.reload();
+
+        //deletebookmark();
+        bookmark();
+        //location.reload();
+
+    });
+
+    $("#bookmarky").click(function ()
+    {
+        //location.reload();
+        //$("#book").show();
+        listbookmarks();
+        //deletebookmark();
+        // bookmark();
         //location.reload();
 
     });

@@ -5,6 +5,7 @@
 /// <reference path="jquery-2.0.2.min.js" />
 var getrandomword = function ()
 {
+     $("#listbook").hide();
     var random_url = 'http://api.wordnik.com/v4/words.json/randomWord?api_key=8e73a5a541c0eff49700705a0d4014a1141c3679b7f1084cd&hasDictionaryDef=true&excludePartOfSpeech=noun-plural&minCorpusCount=0&maxCorpusCount=-1&minDictionaryCount=1&maxDictionaryCount=-1&minLength=5&maxLength=-1';
 
     //return $.get(url, {count:5}, null, 'jsonp');
@@ -19,12 +20,13 @@ var getrandomword = function ()
 
             //console.log(randomword);
             $("#word").text(randomword.word);
-            getblurb(randomword.word);
-          // $.mobile.hidePageLoadingMsg(); 
+           getblurb(randomword.word);
+       //  $.mobile.loading('show');
 
-              $.mobile.loading('hide');
+             $.mobile.loading('hide');
             getdefinition(randomword.word);
-            getgoolgedef(randomword.word);
+           getgoolgedef(randomword.word);
+           getblurb(randomword.word);
              getexample(randomword.word);
 
         },
@@ -48,7 +50,9 @@ var getdefinition = function (randomwordpass)
         type: 'POST',
         url: definition_url,
         dataType: "jsonp",
-
+         complete: function() {
+                 $("#def").listview("refresh");
+        },
         success: function (definition)
         {
             //console.log(definition);
@@ -59,14 +63,17 @@ var getdefinition = function (randomwordpass)
             });
             */
             $("#def").css('display', 'none');
-
+            var appendy="";
             $.each(definition, function (index1, element)
             {
-                $("#def").append("<li><p><i class=\"icon-angle-right\"></i> " + element.text + "</p></li>");
-               
+                // $("#def").append("<li> " + element.text + "</li>");
+                appendy += "<li> " + element.text + "</li>";
+
             });
-            $("#def").fadeIn("slow");
-            // $("#def").listview("refresh");
+          
+            $("#def").append(appendy).listview();
+              $("#def").fadeIn("slow");
+            $("#def").listview();
             //$("p").text(definition[0].text);
         },
         "error": function (jqXHR, status, error)
@@ -92,7 +99,7 @@ var getgoolgedef = function (randomwordpass)
         success: function (googdefinition)
         {
             // console.log(googdefinition);
-            $("gdef").css('display', 'none');
+            $("#gdef").css('display', 'none');
             $("#gwebdef").css('display', 'none');
             //var jsongoogdef = (JSON.stringify(googdefinition));
 
@@ -116,7 +123,7 @@ var getgoolgedef = function (randomwordpass)
                 }
                 //var gphoenitic = googdefinition.primaries[0].terms[1].text;
                 // $("#gdef").text(gprimary).css(  "border-left" ,"5px solid green");
-                $("#gdef").append("<li><i class=\"icon-angle-right\"></i> " + gprimary + "</li>");
+                $("#gdef").append("<li> " + gprimary + "</li>");
                 $("#gdef").fadeIn("slow");
             }
 
@@ -124,7 +131,7 @@ var getgoolgedef = function (randomwordpass)
             {
 
                 var gwebdef = googdefinition.webDefinitions[0].entries[0].terms[0].text;
-                $("#gwebdef").append("<li><i class=\"icon-angle-right\"></i> " + gwebdef + "</li>");
+                $("#gwebdef").append("<li> " + gwebdef + "</li>");
                 $("#gwebdef").fadeIn("slow");
             }
 
@@ -191,11 +198,12 @@ var getblurb = function (blurbarg)
             var $bhtmlobj = $(bhtml);
             var blurbshort = $bhtmlobj.find("div.section.blurb > .short").text();
             var blurblong = $bhtmlobj.find("div.section.blurb > .long").text();
-            $("#blurbshort").append("<li><p><i class=\"icon-angle-right\"></i> " + blurbshort + "</p></li>");   // get short description
+            $("#blurbshort").append("<li> " + blurbshort + "</li>");   // get short description
             $("#blurbshort").fadeIn("slow");
-            $("#blurblong").append("<li><p><i class=\"icon-angle-right\"></i> " + blurblong + "</p></li>");  // get blurb  {i haz blurb}
+            $("#blurblong").append("<li> " + blurblong + "</li>");  // get blurb  {i haz blurb}
             $("#blurblong").fadeIn("slow");
-
+            console.log(blurbshort);
+            console.log(blurblong);
             if (blurbshort === "")
             {
                 $("#ulblurb").hide();
@@ -204,7 +212,7 @@ var getblurb = function (blurbarg)
             {
                 $("#ulblurb").show();
             }
-            //console.log("blurb");
+            console.log("blurb");
             //console.log($bhtmlobj.find("div.section.blurb > .short").text());
             // console.log($bhtmlobj.find("div.section.blurb > .long").text());
 
@@ -241,7 +249,10 @@ var getexample = function (randomwordpass)
         type: 'POST',
         url: example_url,
         dataType: "jsonp",
-
+    complete: function ()
+        {
+            $("#exp").listview("refresh");
+        },
         success: function (example)
         {
             /* //console.log(example.examples[0].text);
@@ -251,23 +262,35 @@ var getexample = function (randomwordpass)
             });
 
             */
+            var initexample = "";
             $("#exp").css('display', 'none');
             $.each(example.examples, function (index1, element)
             {
-                $("#exp").append("<li><p><i class=\"icon-angle-right\"></i> " + element.text + "</p></li>");
-                 //$("#def").append("<li>" + element.text + "</li>");
+               // $("#exp").append("<li> " + element.text + "</li>");
+               initexample += '<li>' + element.text + '</li>';
+                //$("#def").append("<li>" + element.text + "</li>");
                 //exlist.wrap("<li/>");
             });
             //$("p").text(getjsonp_data.word);
-           var explength = $('#exp li').length;
-           $('#explength').text(explength);
-            $("#exp").fadeIn("slow");
-           // $("#exp").listview("refresh");
+             var explength = $('#exp li').length;
+             $('#explength').text(explength);
+            $("#exp").append(initexample).listview();
+             $("#exp").fadeIn("slow");
+   
+       
+            
         },
         "error": function (jqXHR, status, error)
         {
             console.log("status:", status, "error:", error);
         }
     });
-    return;
+
+    
+    
+
+   
 }
+
+
+
